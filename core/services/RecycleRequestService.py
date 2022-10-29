@@ -47,3 +47,24 @@ class RecycleRequestService:
         
         except RecycleRequest.DoesNotExist:
             return {"message": "You didn't make any recycle requests"}
+    
+
+    def getAllRecycleRequests(request):
+        try: 
+            recycleRequests = RecycleRequest.objects.filter(status="pending")
+            recycleRequestsData = [ recycleRequest.getData() for recycleRequest in recycleRequests]
+            return recycleRequestsData
+        
+        except RecycleRequest.DoesNotExist:
+            return {"message": "There are not recycle requests at the moment"}
+    
+
+    def validateRecycleRequest(request):
+        recycleRequestData = RequestHelper.getRequestBody(request)
+
+        try: 
+            RecycleRequest.objects.filter(id = recycleRequestData["id"]).update(status = "pending")
+            return {"message": "Request has been validated"}
+        
+        except RecycleRequest.DoesNotExist:
+            return {"message": "Request does not exist"}

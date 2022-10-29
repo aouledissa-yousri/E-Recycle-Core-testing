@@ -26,3 +26,16 @@ class RecycleRequestController:
     def getRecycleRequests(request):
         return JsonResponse(RecycleRequestService.getRecycleRequests(request), safe = False)
     
+    @api_view(["GET"])
+    @staticmethod
+    @checkAccessToken
+    def getAllRecycleRequests(request):
+        return JsonResponse(RecycleRequestService.getAllRecycleRequests(request))
+    
+
+    @api_view(["PATCH"])
+    @staticmethod
+    @checkAccessToken
+    def validateRecycleRequest(request):
+        return JsonResponse(RecycleRequestService.validateRecycleRequest(request))
+    

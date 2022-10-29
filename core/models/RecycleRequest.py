@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from .Citizen import Citizen
 from .Material import Material
+from .Collector import Collector
 from UserManagement.Controllers import TokenController
 
 
@@ -15,6 +16,7 @@ class RecycleRequest(models.Model):
     location = models.CharField(max_length = 255, default = '')
     dateSubmitted = models.DateTimeField(default = timezone.now())
     status = models.CharField(max_length = 255, default = '')
+    collector = models.ForeignKey(Collector, on_delete=models.CASCADE, default=0)
 
 
     def setData(self, materialData, request):

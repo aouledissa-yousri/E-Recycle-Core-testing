@@ -7,6 +7,7 @@ urlpatterns = [
 
     #citizen paths
     path("signUp/", CitizenController.signUp),
+    path("citizenSignUp"),
 
     path("login/", CitizenController.login),
     path("logout/", CitizenController.logout),
@@ -45,5 +46,11 @@ urlpatterns = [
     #recycle request paths
     path("makeRecycleRequest/", RecycleRequestController.makeRecycleRequest),
     path("withdrawRecycleRequest/", RecycleRequestController.withdrawRecycleRequest),
-    path("getRecycleRequests/", RecycleRequestController.getRecycleRequests)
+    path("getRecycleRequests/", RecycleRequestController.getRecycleRequests),
+
+    path("getAllRecycleRequests/", RecycleRequestController.getAllRecycleRequests),
+    path("validateRecycleRequest/", RecycleRequestController.validateRecycleRequest)
+
+
+    
 ]

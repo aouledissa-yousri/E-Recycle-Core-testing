@@ -35,11 +35,6 @@ class CitizenService:
                 "lastname": citizenData["lastname"]
             })
 
-            #citizen = CitizenSerializer(data = citizen.getAllData())
-
-
-            #if citizen.is_valid():
-
             citizen.save()
             return "Account created successfully"
                 
