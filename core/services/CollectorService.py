@@ -6,6 +6,7 @@ from core.models import Citizen, Collector
 
 class CollectorService: 
     
+    @staticmethod
     def signUp(request):
 
         collector = Collector()
