@@ -32,8 +32,17 @@ class RecycleRequestService:
         recycleRequestData = RequestHelper.getRequestBody(request)
 
         try:
-            RecycleRequest.objects.get(id = recycleRequestData["id"]).delete()
-            return {"message": "Recycle Request has been deleted successfully"}
+            recycleRequest = RecycleRequest.objects.get(id = recycleRequestData["id"])
+
+            if recycleRequest.status == "pending":
+                recycleRequest.delete()
+                return {"message": "Recycle Request has been deleted successfully"}
+            
+            elif recycleRequest.status == "validated":
+                return {"message": "Your recycle request has already been validated you cannot delete it"}
+            
+            else: 
+                return {"message": "you cannot delete a request that already has been completed"}
         
         except RecycleRequest.DoesNotExist:
             return {"message": "Recycle Request not found"}
@@ -41,7 +50,7 @@ class RecycleRequestService:
 
     def getRecycleRequests(request):
         try:
-            recycleRequests = RecycleRequest.objects.filter(citizen_id = Citizen.objects.get(user_id = TokenController.decodeToken(request.headers["Token"])["id"]).id)
+            recycleRequests = RecycleRequest.objects.filter(citizen_id = Citizen.objects.get(user_id = TokenController.decodeToken(request.headers["Token"])["id"]).id, status = "pending")
             recycleRequestsData = [recycleRequest.getData() for recycleRequest in recycleRequests]
             return recycleRequestsData
         
@@ -61,10 +70,28 @@ class RecycleRequestService:
 
     def validateRecycleRequest(request):
         recycleRequestData = RequestHelper.getRequestBody(request)
+        collectorId = TokenController.decodeToken(request.headers["Token"])["id"]
 
         try: 
-            RecycleRequest.objects.filter(id = recycleRequestData["id"]).update(status = "pending")
+            RecycleRequest.objects.filter(id = recycleRequestData["id"]).update(status = "validated", collector_id = collectorId)
             return {"message": "Request has been validated"}
         
         except RecycleRequest.DoesNotExist:
             return {"message": "Request does not exist"}
+        
+        except KeyError:
+            return {"message": "invalid parameters"}
+    
+
+    def completeRecycleRequest(request):
+        recycleRequestData = RequestHelper.getRequestBody(request)
+
+        try: 
+            RecycleRequest.objects.filter(id = recycleRequestData["id"]).update(status = "completed")
+            return {"message": "Request has been completed"}
+        
+        except RecycleRequest.DoesNotExist:
+            return {"message": "Request does not exist"}
+        
+        except KeyError:
+            return {"message": "invalid parameters"}
