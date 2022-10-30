@@ -16,7 +16,8 @@ class RecycleRequest(models.Model):
     location = models.CharField(max_length = 255, default = '')
     dateSubmitted = models.DateTimeField(default = timezone.now())
     status = models.CharField(max_length = 255, default = '')
-    collector = models.ForeignKey(Collector, on_delete=models.CASCADE, default=0)
+
+    collector = models.ForeignKey(Collector, on_delete=models.CASCADE, default=0, related_name='collector')
 
 
     def setData(self, materialData, request):

@@ -93,8 +93,8 @@ class CitizenService:
             return {"message":"user not found"}
         
         #request payload is invalid
-        '''except KeyError: 
-            return {"message": "invalid parameters"}'''
+        except KeyError: 
+            return {"message": "invalid parameters"}
     
 
 

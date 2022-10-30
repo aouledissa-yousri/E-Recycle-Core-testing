@@ -7,7 +7,6 @@ urlpatterns = [
 
     #citizen paths
     path("signUp/", CitizenController.signUp),
-    path("citizenSignUp"),
 
     path("login/", CitizenController.login),
     path("logout/", CitizenController.logout),
@@ -34,6 +33,8 @@ urlpatterns = [
     path("facebookLogin/", CitizenController.facebookLogin),
 
 
+    #collector paths
+    path("collectorSignUp/", CollectorController.signUp),
 
 
 
