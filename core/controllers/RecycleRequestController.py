@@ -30,7 +30,7 @@ class RecycleRequestController:
     @staticmethod
     @checkAccessToken
     def getAllRecycleRequests(request):
-        return JsonResponse(RecycleRequestService.getAllRecycleRequests(request))
+        return JsonResponse(RecycleRequestService.getAllRecycleRequests(request), safe = False)
     
 
     @api_view(["PATCH"])
