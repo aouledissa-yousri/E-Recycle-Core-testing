@@ -24,7 +24,7 @@ class FacebookUserController:
     def facebookAuthFlow(request):
 
         
-        redirect = 0 if request.path == "/core/facebookLoginGateway/" else 1
+        redirect = 2 if request.path == "/core/facebookLoginGateway/" else 3
         
         #initialize authorization url
         authUrl = ''.join(f'''
@@ -108,7 +108,7 @@ class FacebookUserController:
     @staticmethod
     def getAccessToken(request):
 
-        redirect = 0 if request.path == "/core/facebookLogin/" else 1
+        redirect = 2 if request.path == "/core/facebookLogin/" else 3
 
         #prepare access token exchange url
         access_token_url = ''.join(
