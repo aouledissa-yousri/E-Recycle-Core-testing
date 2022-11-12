@@ -8,11 +8,13 @@ import google.auth.transport.requests, json, requests, sys, random
 
 class GoogleUserController: 
 
-    redirect_url = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][0]
+    redirect_url_citizen = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][0]
+    redirect_url_collector = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][1]
 
     #login using google account 
     @staticmethod 
     def googleLogin(request):
+        print(request.path)
 
         #getting google account data using access token provided
         account_data = GoogleUserController.requestGoogleAccessToken(request)
@@ -57,24 +59,36 @@ class GoogleUserController:
 
     #redirect to google login page 
     @staticmethod 
-    def googleLoginGateway():
-        flow = GoogleUserController.googleAuthFlow(sys.path[0] + "/UserManagement/google_client_secret.json")
+    def googleLoginGateway(request):
+        flow = GoogleUserController.googleAuthFlow(sys.path[0] + "/UserManagement/google_client_secret.json", request)
         auth_url = flow.authorization_url()
         return {"message": auth_url}
     
 
     #prepare google login parameters 
-    def googleAuthFlow(client_secret_path):
-        print(GoogleUserController.redirect_url)
+    def googleAuthFlow(client_secret_path, request):
+
+        print(request.path)
+
+        if(request.path in ["/core/collector/googleLoginGateway/", "/core/collector/googleLogin/"]):
+
+            return Flow.from_client_secrets_file(
+                client_secrets_file = client_secret_path,
+                scopes=['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid'],
+                redirect_uri = GoogleUserController.redirect_url_collector
+            )
+
         return Flow.from_client_secrets_file(
             client_secrets_file = client_secret_path,
             scopes=['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid'],
-            redirect_uri = GoogleUserController.redirect_url
+            redirect_uri = GoogleUserController.redirect_url_citizen
         )
+
+
 
     #request google account access token 
     def requestGoogleAccessToken(request):
-        flow =  GoogleUserController.googleAuthFlow(sys.path[0] + "/UserManagement/google_client_secret.json")
+        flow =  GoogleUserController.googleAuthFlow(sys.path[0] + "/UserManagement/google_client_secret.json", request)
         flow.fetch_token(authorization_response=request.build_absolute_uri())
     
         client_id = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["client_id"]

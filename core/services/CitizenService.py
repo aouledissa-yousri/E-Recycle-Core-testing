@@ -385,8 +385,8 @@ class CitizenService:
 
 
     #redirect to google login page
-    def googleLoginGateway():
-        return GoogleUserController.googleLoginGateway()
+    def googleLoginGateway(request):
+        return GoogleUserController.googleLoginGateway(request)
     
 
     #google login 
@@ -399,14 +399,20 @@ class CitizenService:
         googleUserData["lastname"] = googleUserData["user"]["username"].split(" ")[1]
 
 
-        citizen = Citizen()
-        citizen.setData({
-            "user" : GoogleUser.objects.get(username = googleUserData["user"]["username"]),
-            "name": googleUserData["name"],
-            "lastname": googleUserData["lastname"]
-        })
+        try: 
+            citizen = Citizen.objects.get(user_id = TokenController.decodeToken(googleUserData["token"])["id"])
 
-        citizen.save()
+        except Citizen.DoesNotExist:
+            citizen = Citizen()
+
+            citizen.setData({
+                "user" : GoogleUser.objects.get(username = googleUserData["user"]["username"]),
+                "name": googleUserData["name"],
+                "lastname": googleUserData["lastname"]
+            })
+
+            citizen.save()
+
 
 
         return {
