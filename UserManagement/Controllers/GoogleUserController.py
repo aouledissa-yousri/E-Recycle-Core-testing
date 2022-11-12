@@ -14,7 +14,7 @@ class GoogleUserController:
     #login using google account 
     @staticmethod 
     def googleLogin(request):
-        print(request.path)
+        print(request.build_absolute_uri())
 
         #getting google account data using access token provided
         account_data = GoogleUserController.requestGoogleAccessToken(request)
