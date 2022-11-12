@@ -2,8 +2,8 @@ from core.services import CitizenService
 from core.helpers import RequestHelper
 from UserManagement.models import GenericUser
 from core.models import Collector
-from UserManagement.models import GoogleUser
-from UserManagement.Controllers import GoogleUserController, TokenController
+from UserManagement.models import GoogleUser, FacebookUser
+from UserManagement.Controllers import GoogleUserController, TokenController, FacebookUserController
 
 
 class CollectorService: 
@@ -30,6 +30,7 @@ class CollectorService:
 
 
     #google login 
+    @staticmethod
     def googleLogin(request):
         googleUserData =  GoogleUserController.googleLogin(request)
 
@@ -60,3 +61,35 @@ class CollectorService:
             "user": collector.getData(),
             "token": googleUserData["token"]
         }  
+    
+
+    #facebook login
+    @staticmethod
+    def facebookLogin(request):
+        facebookUserData = FacebookUserController.facebookLogin(request)
+
+        #seperate google account username to name and lastname 
+        facebookUserData["name"] = facebookUserData["user"]["username"].split(" ")[0]
+        facebookUserData["lastname"] = facebookUserData["user"]["username"].split(" ")[1]
+
+
+
+        try: 
+            collector = Collector.objects.get(user_id = TokenController.decodeToken(facebookUserData["token"])["id"])
+        
+        except Collector.DoesNotExist:
+            collector = Collector()
+            collector.setData({
+                "user" : FacebookUser.objects.get(username = facebookUserData["user"]["username"]),
+                "name": facebookUserData["name"],
+                "lastname": facebookUserData["lastname"]
+            })
+
+            collector.save()
+
+
+        return {
+            "message": "success",
+            "user": collector.getData(),
+            "token": facebookUserData["token"]
+        }

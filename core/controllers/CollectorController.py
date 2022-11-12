@@ -22,3 +22,17 @@ class CollectorController:
     @staticmethod
     def googleLogin(request):
         return JsonResponse(CollectorService.googleLogin(request))
+
+
+    @api_view(["GET"])
+    @staticmethod 
+    def facebookLoginGateway(request):
+        return JsonResponse(CitizenService.facebookLoginGateway(request))
+    
+    @api_view(["GET"])
+    @staticmethod
+    def facebookLogin(request):
+        return JsonResponse(CollectorService.facebookLogin(request))
+    
+
+    

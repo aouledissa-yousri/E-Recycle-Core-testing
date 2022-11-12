@@ -21,13 +21,16 @@ class FacebookUserController:
 
 
     @staticmethod
-    def facebookAuthFlow():
+    def facebookAuthFlow(request):
+
+        
+        redirect = 0 if request.path == "/core/facebookLoginGateway/" else 1
         
         #initialize authorization url
         authUrl = ''.join(f'''
             https://www.facebook.com/v14.0/dialog/oauth?response_type=code
             &client_id={FacebookUserController.client_secret_data["app_id"]}
-            &redirect_uri={urllib.parse.quote(FacebookUserController.client_secret_data["redirect_url"])}
+            &redirect_uri={urllib.parse.quote(FacebookUserController.client_secret_data["redirect_uris"][redirect])}
             &scope=public_profile&state=PyFacebook
             '''.split()
         )
@@ -37,8 +40,8 @@ class FacebookUserController:
     
 
     @staticmethod
-    def facebookLoginGateway():
-        return FacebookUserController.facebookAuthFlow()
+    def facebookLoginGateway(request):
+        return FacebookUserController.facebookAuthFlow(request)
     
 
     @staticmethod
@@ -105,11 +108,13 @@ class FacebookUserController:
     @staticmethod
     def getAccessToken(request):
 
+        redirect = 0 if request.path == "/core/facebookLogin/" else 1
+
         #prepare access token exchange url
         access_token_url = ''.join(
             f'''
             https://graph.facebook.com/v14.0/oauth/access_token?
-            &redirect_uri={urllib.parse.quote(FacebookUserController.client_secret_data["redirect_url"])}
+            &redirect_uri={urllib.parse.quote(FacebookUserController.client_secret_data["redirect_uris"][redirect])}
             &client_id={FacebookUserController.client_secret_data["app_id"]}
             &code={FacebookUserController.authCode} &client_secret={FacebookUserController.client_secret_data["app_secret"]}'''.split()
         )

@@ -423,8 +423,8 @@ class CitizenService:
     
 
     #redirect to facebook login page
-    def facebookLoginGateway():
-        return FacebookUserController.facebookLoginGateway()
+    def facebookLoginGateway(request):
+        return FacebookUserController.facebookLoginGateway(request)
     
 
     #facebook login
@@ -436,14 +436,19 @@ class CitizenService:
         facebookUserData["lastname"] = facebookUserData["user"]["username"].split(" ")[1]
 
 
-        citizen = Citizen()
-        citizen.setData({
-            "user" : FacebookUser.objects.get(username = facebookUserData["user"]["username"]),
-            "name": facebookUserData["name"],
-            "lastname": facebookUserData["lastname"]
-        })
 
-        citizen.save()
+        try: 
+            citizen = Citizen.objects.get(user_id = TokenController.decodeToken(facebookUserData["token"])["id"])
+        
+        except Citizen.DoesNotExist:
+            citizen = Citizen()
+            citizen.setData({
+                "user" : FacebookUser.objects.get(username = facebookUserData["user"]["username"]),
+                "name": facebookUserData["name"],
+                "lastname": facebookUserData["lastname"]
+            })
+
+            citizen.save()
 
 
         return {
