@@ -14,7 +14,6 @@ class GoogleUserController:
     #login using google account 
     @staticmethod 
     def googleLogin(request):
-        print(request.build_absolute_uri())
 
         #getting google account data using access token provided
         account_data = GoogleUserController.requestGoogleAccessToken(request)
@@ -68,7 +67,6 @@ class GoogleUserController:
     #prepare google login parameters 
     def googleAuthFlow(client_secret_path, request):
 
-        print(request.path)
 
         if(request.path in ["/core/collector/googleLoginGateway/", "/core/collector/googleLogin/"]):
 
