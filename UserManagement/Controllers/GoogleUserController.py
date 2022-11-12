@@ -8,8 +8,8 @@ import google.auth.transport.requests, json, requests, sys, random
 
 class GoogleUserController: 
 
-    redirect_url_citizen = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][0]
-    redirect_url_collector = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][1]
+    redirect_url_citizen = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][2]
+    redirect_url_collector = json.loads(open(sys.path[0] + "/UserManagement/google_client_secret.json").read())["web"]["redirect_uris"][3]
 
     #login using google account 
     @staticmethod 
