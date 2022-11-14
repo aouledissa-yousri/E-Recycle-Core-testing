@@ -34,7 +34,7 @@ urlpatterns = [
 
 
     #collector paths
-    path("collecto/signUp/", CollectorController.signUp),
+    path("collector/signUp/", CollectorController.signUp),
 
     path("collector/googleLoginGateway/", CollectorController.googleLoginGateway),
     path("collector/googleLogin/", CollectorController.googleLogin),
