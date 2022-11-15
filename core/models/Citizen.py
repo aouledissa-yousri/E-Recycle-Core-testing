@@ -17,7 +17,8 @@ class Citizen(models.Model):
         return {
             "user_profile": self.user.getData(),
             "name": self.name,
-            "lastname": self.lastname
+            "lastname": self.lastname,
+            "recycleCoins": self.recycleCoins
         }
     
     def getAllData(self):
@@ -36,6 +37,7 @@ class Citizen(models.Model):
         self.user = data["user"]
         self.name = data["name"]
         self.lastname = data["lastname"]
+        self.recycleCoins = data["recycleCoins"]
     
     
     # save user profile data

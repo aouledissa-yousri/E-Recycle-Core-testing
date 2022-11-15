@@ -256,7 +256,8 @@ class CitizenService:
         citizen.setData({
             "user": account,
             "name": Citizen.objects.get(user_id = account.id).name,
-            "lastname": Citizen.objects.get(user_id = account.id).lastname
+            "lastname": Citizen.objects.get(user_id = account.id).lastname,
+            "recycleCoins": Citizen.objects.get(user_id = account.id).recycleCoins
         })
 
         return {
