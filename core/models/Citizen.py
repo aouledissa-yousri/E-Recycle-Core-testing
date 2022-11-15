@@ -10,6 +10,7 @@ class Citizen(models.Model):
     user: User = models.OneToOneField(User, on_delete=models.CASCADE, default=0)
     name = models.CharField(max_length = 255, default = '')
     lastname = models.CharField(max_length = 255, default = '')
+    recycleCoins = models.IntegerField(default = 0)
     
     def getData(self):
 
@@ -103,5 +104,11 @@ class Citizen(models.Model):
             
             
             return result
+        
+
+    def gainRecycleCoins(self, recycleCoins):
+        self.recycleCoins += recycleCoins
+        Citizen.objects.filter(id = self.id).update(recycleCoins = self.recycleCoins)
+        return True
         
 

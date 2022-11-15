@@ -102,5 +102,10 @@ class CitizenController:
     def facebookLogin(request):
         return JsonResponse(CitizenService.facebookLogin(request))
     
+
+    @api_view(["PATCH"])
+    def gainRecycleCoins(request):
+        return JsonResponse(CitizenService.gainRecycleCoins(request))
+    
     
     

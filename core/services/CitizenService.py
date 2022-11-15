@@ -456,3 +456,18 @@ class CitizenService:
             "user": citizen.getData(),
             "token": facebookUserData["token"]
         }
+    
+
+    @staticmethod
+    def gainRecycleCoins(request):
+        data = RequestHelper.getRequestBody(request)
+
+        try: 
+            citizen = Citizen.objects.get(id = data["id"])
+            citizen.gainRecycleCoins(data["coins"])
+
+            return {"message": "Citizen has gained coins"}
+        
+        except Citizen.DoesNotExist:
+            return {"message": "Citizen not found"}
+        
