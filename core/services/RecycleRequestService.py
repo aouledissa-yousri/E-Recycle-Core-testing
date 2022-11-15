@@ -1,5 +1,5 @@
 from core.helpers import RequestHelper
-from core.models import RecycleRequest, Citizen, Material
+from core.models import RecycleRequest, Citizen, Material, Collector
 from UserManagement.Controllers import TokenController
 
 
@@ -73,6 +73,7 @@ class RecycleRequestService:
         collectorId = TokenController.decodeToken(request.headers["Token"])["id"]
 
         try: 
+            collectorId = Collector.objects.get(user_id = collectorId).id
             RecycleRequest.objects.filter(id = recycleRequestData["id"]).update(status = "validated", collector_id = collectorId)
             return {"message": "Request has been validated"}
         
