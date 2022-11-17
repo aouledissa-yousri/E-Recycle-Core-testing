@@ -464,7 +464,8 @@ class CitizenService:
         data = RequestHelper.getRequestBody(request)
 
         try: 
-            citizen = Citizen.objects.get(id = data["id"])
+            citizen = Citizen.objects.get(user_id = User.objects.get(id = data["id"]))
+            print(citizen.recycleCoins)
             citizen.gainRecycleCoins(data["coins"])
 
             return {"message": "Citizen has gained coins"}

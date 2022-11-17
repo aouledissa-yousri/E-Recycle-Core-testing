@@ -47,7 +47,7 @@ class RecycleRequestService:
         except RecycleRequest.DoesNotExist:
             return {"message": "Recycle Request not found"}
     
-
+    
     def getRecycleRequests(request):
         try:
             recycleRequests = RecycleRequest.objects.filter(citizen_id = Citizen.objects.get(user_id = TokenController.decodeToken(request.headers["Token"])["id"]).id, status = "pending")
