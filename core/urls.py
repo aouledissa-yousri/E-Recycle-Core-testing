@@ -31,7 +31,9 @@ urlpatterns = [
 
     path("facebookLoginGateway/", CitizenController.facebookLoginGateway),
     path("facebookLogin/", CitizenController.facebookLogin),
+
     path("gainRecycleCoins/", CitizenController.gainRecycleCoins),
+    path("getRecycleCoins/", CitizenController.getRecycleCoins),
 
 
     #collector paths

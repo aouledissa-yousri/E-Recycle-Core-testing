@@ -465,11 +465,22 @@ class CitizenService:
 
         try: 
             citizen = Citizen.objects.get(user_id = User.objects.get(id = data["id"]))
-            print(citizen.recycleCoins)
             citizen.gainRecycleCoins(data["coins"])
 
             return {"message": "Citizen has gained coins"}
         
         except Citizen.DoesNotExist:
             return {"message": "Citizen not found"}
+    
+
+    @staticmethod
+    def getRecycleCoins(request):
+        try: 
+            citizen = Citizen.objects.get(user_id = TokenController.decodeToken(request.headers["Token"])["id"])
+            return {
+                "message": "success",
+                "coins": citizen.recycleCoins
+            }
         
+        except Citizen.DoesNotExist:
+            return {"message": "Citizen not found"}

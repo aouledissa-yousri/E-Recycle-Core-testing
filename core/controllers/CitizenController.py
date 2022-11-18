@@ -69,43 +69,58 @@ class CitizenController:
     
 
     @api_view(["DELETE"])
+    @staticmethod
     def checkPasswordResetCode(request):
         return JsonResponse(CitizenService.checkPasswordResetCode(request))
     
     @api_view(["PATCH"])
+    @staticmethod
     def resetPassword(request):
         return JsonResponse(CitizenService.resetPassword(request))
     
 
     @api_view(["PATCH"])
+    @staticmethod
     @checkAccessToken
     def changePassword(request):  
         return JsonResponse(CitizenService.changePassword(request))
 
 
     @api_view(["GET"])
+    @staticmethod
     def googleLoginGateway(request):
         return JsonResponse(CitizenService.googleLoginGateway(request)) 
     
 
     @api_view(["GET"])
+    @staticmethod
     def googleLogin(request):
         return JsonResponse(CitizenService.googleLogin(request))
     
 
     @api_view(["GET"])
+    @staticmethod
     def facebookLoginGateway(request):
         return JsonResponse(CitizenService.facebookLoginGateway(request))
     
 
     @api_view(["GET"])
+    @staticmethod
     def facebookLogin(request):
         return JsonResponse(CitizenService.facebookLogin(request))
     
 
     @api_view(["PATCH"])
+    @staticmethod
+    @checkAccessToken
     def gainRecycleCoins(request):
         return JsonResponse(CitizenService.gainRecycleCoins(request))
+    
+    @api_view(["GET"])
+    @staticmethod
+    #@checkAccessToken
+    def getRecycleCoins(request):
+        return JsonResponse(CitizenService.getRecycleCoins(request))
     
     
     
