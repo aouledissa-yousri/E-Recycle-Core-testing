@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--x3s$i$^dhhpjj^dexme7bggvng3)=c53pqv)5gqh(4uxu1xy1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -154,6 +154,6 @@ EMAIL_HOST_USER = "e.recycle.mail.service@gmail.com"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "wvtjotnovyjpwofs"
+EMAIL_HOST_PASSWORD = "twnekmrdxuczhghp"
 
 
