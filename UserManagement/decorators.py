@@ -1,4 +1,4 @@
-from Test.settings import SECRET_KEY
+from Global.settings import SECRET_KEY
 from UserManagement.models.Token import Token
 from UserManagement.models.GenericUser import GenericUser
 from .Controllers.LocationController import LocationController

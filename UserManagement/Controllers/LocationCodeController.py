@@ -1,6 +1,6 @@
 from ..extra import *
 from ..serializers import LocationCodeSerializer
-from Test.settings import EMAIL_HOST_USER
+from Global.settings import EMAIL_HOST_USER
 from ..models.GenericUser import GenericUser
 from ..models.LocationCode import LocationCode
 from django.template.loader import render_to_string

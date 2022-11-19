@@ -61,7 +61,16 @@ urlpatterns = [
 
     path("getAllRecycleRequests/", RecycleRequestController.getAllRecycleRequests),
     path("validateRecycleRequest/", RecycleRequestController.validateRecycleRequest),
-    path("completeRecycleRequest/", RecycleRequestController.completeRecycleRequest)
+    path("completeRecycleRequest/", RecycleRequestController.completeRecycleRequest),
+
+
+    #notification paths 
+
+    path("addMakeRecycleRequestNotification/", NotificationController.addMakeRecycleRequestNotification),
+    path("addCompleteRecycleRequestNotification/", NotificationController.addCompleteRecycleRequestNotification),
+    path("addValidateRecycleRequestNotification/", NotificationController.addValidateRecycleRequestNotification),
+    path("getNotifications/", NotificationController.getNotifications),
+    path("checkNotifications/", NotificationController.checkNotifications),
 
 
     

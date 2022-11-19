@@ -3,7 +3,7 @@ from django.utils import timezone
 from .Citizen import Citizen
 
 class Notification(models.Model):
-    user: Citizen = models.OneToOneField(Citizen, on_delete=models.CASCADE, default=0)
+    users = models.ManyToManyField(Citizen)
     description = models.CharField(max_length = 255, default = '')
     date = models.DateTimeField(default = timezone.now())
     checked = models.BooleanField(default=False)
