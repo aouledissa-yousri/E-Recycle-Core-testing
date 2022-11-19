@@ -10,7 +10,6 @@ class NotificationService:
 
         try:
             data = RequestHelper.getRequestBody(request)
-            
             notification = Notification()
             notification.setData(data["notification"])
             return notification
