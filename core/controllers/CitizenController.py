@@ -118,7 +118,7 @@ class CitizenController:
     
     @api_view(["GET"])
     @staticmethod
-    #@checkAccessToken
+    @checkAccessToken
     def getRecycleCoins(request):
         return JsonResponse(CitizenService.getRecycleCoins(request))
     

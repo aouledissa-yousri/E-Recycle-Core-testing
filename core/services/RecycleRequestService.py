@@ -68,6 +68,16 @@ class RecycleRequestService:
             return {"message": "There are not recycle requests at the moment"}
     
 
+    def getValidatedRecycleRequests(request):
+        try:
+            recycleRequests = RecycleRequest.objects.filter(collector_id = Citizen.objects.get(user_id = TokenController.decodeToken(request.headers["Token"])["id"]).id, status = "validated")
+            recycleRequestsData = [recycleRequest.getData() for recycleRequest in recycleRequests]
+            return recycleRequestsData
+        
+        except RecycleRequest.DoesNotExist:
+            return {"message": "You didn't make any recycle requests"}
+    
+
     def validateRecycleRequest(request):
         recycleRequestData = RequestHelper.getRequestBody(request)
         collectorId = TokenController.decodeToken(request.headers["Token"])["id"]

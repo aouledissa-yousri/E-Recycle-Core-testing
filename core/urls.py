@@ -60,6 +60,7 @@ urlpatterns = [
     path("getRecycleRequests/", RecycleRequestController.getRecycleRequests),
 
     path("getAllRecycleRequests/", RecycleRequestController.getAllRecycleRequests),
+    path("getValidatedRecycleRequests/", RecycleRequestController.getValidatedRecycleRequests),
     path("validateRecycleRequest/", RecycleRequestController.validateRecycleRequest),
     path("completeRecycleRequest/", RecycleRequestController.completeRecycleRequest),
 
