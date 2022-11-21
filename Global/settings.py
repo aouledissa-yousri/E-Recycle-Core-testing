@@ -95,12 +95,21 @@ DATABASES = {
         #'HOST': 'ec2-54-82-205-3.compute-1.amazonaws.com',
         #'PORT': '5432'
 
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME': 'railway',
+        #'USER': 'postgres',
+        #'PASSWORD': '443d0P8iD2r0UEeJwRXE',
+        #'HOST': 'containers-us-west-87.railway.app',
+        #'PORT': '7243'
+
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '443d0P8iD2r0UEeJwRXE',
-        'HOST': 'containers-us-west-87.railway.app',
-        'PORT': '7243'
+        'PASSWORD': 'NsCPOUeYCwZM8FXeqxSr',
+        'HOST': 'containers-us-west-137.railway.app',
+        'PORT': '6799'
+
+
     }
 }
 
