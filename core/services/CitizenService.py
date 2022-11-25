@@ -32,7 +32,8 @@ class CitizenService:
             citizen.setData({
                 "user" : GenericUser.objects.get(username = citizenData["user_profile"]["username"]),
                 "name": citizenData["name"],
-                "lastname": citizenData["lastname"]
+                "lastname": citizenData["lastname"],
+                "recycleCoins": citizenData["recycleCoins"]
             })
 
             citizen.save()
