@@ -163,6 +163,6 @@ EMAIL_HOST_USER = "e.recycle.mail.service@gmail.com"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = "extyugxblovmiunn"
+EMAIL_HOST_PASSWORD = "fsoianglpnuvunzp"
 
 
