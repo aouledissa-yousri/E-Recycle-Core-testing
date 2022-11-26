@@ -18,7 +18,8 @@ class Citizen(models.Model):
             "user_profile": self.user.getData(),
             "name": self.name,
             "lastname": self.lastname,
-            "recycleCoins": self.recycleCoins
+            "recycleCoins": self.recycleCoins,
+            "type": "citizen"
         }
     
     def getAllData(self):

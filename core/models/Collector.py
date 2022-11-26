@@ -8,3 +8,7 @@ class Collector(Citizen):
 
     def setData(self, data):
         super().setData(data)
+    
+    def getData(self):
+        userData = super().getData()
+        userData["type"] = "collector"
