@@ -20,14 +20,15 @@ class CollectorService:
             collector.setData({
                 "user" : GenericUser.objects.get(username = collectorData["user_profile"]["username"]),
                 "name": collectorData["name"],
-                "lastname": collectorData["lastname"]
+                "lastname": collectorData["lastname"],
+                "recycleCoins": collectorData["recycleCoins"]
             })
 
             collector.save()
             return "Account created successfully"
                 
-        return result  
-
+        return result 
+    
 
     #google login 
     @staticmethod

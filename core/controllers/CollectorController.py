@@ -11,6 +11,7 @@ class CollectorController:
     def signUp(request):
         return JsonResponse({"message" : CollectorService.signUp(request)})
     
+   
 
     @api_view(["GET"])
     @staticmethod 

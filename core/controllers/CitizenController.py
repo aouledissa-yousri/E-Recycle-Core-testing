@@ -10,7 +10,6 @@ class CitizenController:
     def signUp(request):
         return JsonResponse({"message" : CitizenService.signUp(request)})
     
-
     @api_view(["POST"])
     @staticmethod
     def login(request):
