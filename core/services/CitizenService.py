@@ -484,6 +484,7 @@ class CitizenService:
         
         except Citizen.DoesNotExist:
             return {"message": "Citizen not found"}
+        
     
 
     @staticmethod
