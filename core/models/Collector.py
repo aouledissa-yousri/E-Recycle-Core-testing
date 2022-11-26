@@ -12,3 +12,4 @@ class Collector(Citizen):
     def getData(self):
         userData = super().getData()
         userData["type"] = "collector"
+        return userData

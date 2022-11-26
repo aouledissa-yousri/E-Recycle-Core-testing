@@ -1,5 +1,5 @@
 from threading import Thread
-from core.models import Citizen
+from core.models import Citizen, Collector
 from core.helpers import RequestHelper, CodeHelper, CredentialsHelper, HashHelper
 from UserManagement.models import GenericUser, ConfirmationCode, User, Token, TwoFactorAuthCode, PasswordResetCode, GoogleUser, FacebookUser
 from UserManagement.serializers import ConfirmationCodeSerializer, TwoFactorAuthCodeSerializer, PasswordResetCodeSerializer
@@ -253,19 +253,31 @@ class CitizenService:
 
         token = CitizenService.createSession(account)
 
-        citizen = Citizen()
-        citizen.setData({
-            "user": account,
-            "name": Citizen.objects.get(user_id = account.id).name,
-            "lastname": Citizen.objects.get(user_id = account.id).lastname,
-            "recycleCoins": Citizen.objects.get(user_id = account.id).recycleCoins
-        })
+        try: 
+            user = Collector.objects.get(citizen_ptr_id = Citizen.objects.get(user_id = account.id).id)
+            user.setData({
+                "user": account,
+                "name": Collector.objects.get(user_id = account.id).name,
+                "lastname": Collector.objects.get(user_id = account.id).lastname,
+                "recycleCoins": Collector.objects.get(user_id = account.id).recycleCoins
+            })
+        
+        except Collector.DoesNotExist:
+            user = Citizen.objects.get(user_id = account.id)
+            user.setData({
+                "user": account,
+                "name": Citizen.objects.get(user_id = account.id).name,
+                "lastname": Citizen.objects.get(user_id = account.id).lastname,
+                "recycleCoins": Citizen.objects.get(user_id = account.id).recycleCoins
+            })
 
         return {
             "message": "success",
-            "user": citizen.getData(),
+            "user": user.getData(),
             "token": token
         }
+        
+        
     
 
     @staticmethod
