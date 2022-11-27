@@ -1,5 +1,5 @@
 from core.helpers import RequestHelper
-from core.models import Notification, Collector, Citizen
+from core.models import Notification, Collector, Citizen, RecycleRequest
 from UserManagement.models import User
 from UserManagement.Controllers import TokenController
 
@@ -40,7 +40,7 @@ class NotificationService:
         try: 
             if notification != "Invalid parameters":
                 notification.save()
-                notification.users.add(Citizen.objects.get(user_id = User.objects.get(id = RequestHelper.getRequestBody(request)["id"])))
+                notification.users.add(Citizen.objects.get(id = RecycleRequest.objects.get(id = RequestHelper.getRequestBody(request)["id"]).citizen.id))
                 return {"message": "Complete Recycle Request sent to citizen"}
             
             return {"message": "Invalid parameters"}
@@ -55,7 +55,7 @@ class NotificationService:
 
             if notification != "Invalid parameters":
                 notification.save()
-                notification.users.add(Citizen.objects.get(user_id = User.objects.get(id = RequestHelper.getRequestBody(request)["id"])))
+                notification.users.add(Citizen.objects.get(id = RecycleRequest.objects.get(id = RequestHelper.getRequestBody(request)["id"]).citizen.id))
                 return {"message": "Validate Recycle Request sent to citizen"}
 
             return {"message": "Invalid parameters"}
